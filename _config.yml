@@ -2,7 +2,7 @@
 title: Web 技术博客
 email: li_zhihao@sina.com
 description: > # this means to ignore newlines until "baseurl:"
-  以web开发,web技术,web优化,web学习为核心的web技术交流博客,真实记录weber在工作和开发web过程中遇到的各种web问题和解决方法
+  以web开发,web技术,web优化,web学习为核心的web技术交流博客,真实记录在工作和开发web过程中遇到的各种web问题和解决方法
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://lizhihao.github.com" # the base hostname & protocol for your site
 twitter_username: jekyllrb

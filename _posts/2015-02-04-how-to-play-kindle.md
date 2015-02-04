@@ -14,6 +14,7 @@ tags:
 因为是翻译的老外的文章，所以，有些方法和功能，在中国是不太适用的。有些问题我会特别说明的一下的。 
 
 ## 开始设置和阅读资源
+---
 1. __KPW 客服网站__：Kindle Paperwhite help section 你可以在这里设定你的PW，也可以联系客服。
 2. __说明书__：Kindle Documentation 可以从这里下载说明说，是pdf文件，还是英文的。（不过，KP可以直接设置为中文系统，所以，使用是不成问题的。） 
 3. __取消广告__：可以去Manage Your Devices，Editing the Special Offers,不过要取消广告需要花20刀加税。（个人觉得没什么需要，毕竟看书时候不会出现广告的，Amazon赚钱方式还是蛮人性化的。百度一下，还有一些越狱去广告的，有兴趣不妨一试。不过，不建议折腾，而且越狱有危险哈！） 
@@ -33,6 +34,7 @@ tags:
 10. __如何免费从图书馆借书__：Library tutorial对国内的朋友不适用，毕竟大家没有途径办图书卡，不过网上这么多书也够了。 
 
 ## Kindle PW设定
+---
 11. __为你的机器改名__：你可以改变左上角显示的名字。Settings > Personalize your Kindle > Device Name。也可以在Amazon网站里Manage Your Devices改。 
 12. __修改kindle邮箱__：所有的kindle用户都会有个免费的kindle邮箱，可以用来储存传输个人文件和书籍。这个邮箱可以通过Personal Documents Settings修改。 
 13. __显示语言选项__：kindle PW支持多语言，你可以通过Settings >Device Options > Language and Dictionaries修改。 
@@ -44,6 +46,7 @@ tags:
 18. __飞行模式__：无线和飞行模式，可以从settings里开关。 
 
 ## KPW使用技巧
+---
 19. __绕过屏保广告__：如果你不想花费20刀买无广告版，也不想在睡眠模式下看到屏保广告，你可以直接关机（根据#5），仅仅多花几秒钟而已，在你开机时也不用划屏解锁。（我挺喜欢看广告的，o(╯□╰)o还木有试过这些方法。） 
 20. __移除在主页的推荐书__：在你浏览主页时会发现，amazon在底部放了4本推荐书籍，占有了大量空间，你可以从授权parental controls，点击 restricting the Kindle Store。这样你就可以更加方便的浏览你的存书。 
 21. __主页面导航__：你可以点击主页面的页码，（不是非常明显的,有点小）然后可以选择跳到其他页码或则字母表。 

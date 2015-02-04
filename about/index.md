@@ -18,8 +18,6 @@ comments: no
 
 邮箱(E-Mail)：[{{ site.email }}](mailto:{{ site.email }})
 
-Weibo:[{{ site.weibo }}]
-
 GitHub : [http://github.com/{{ site.github }}](http://github.com/{{ site.github }})
 
 ----
@@ -42,3 +40,5 @@ vim风格的按键，j为上一篇，k下一篇。
 ----
 
 
+
+[![新浪微博](http://service.t.sina.com.cn/widget/qmd/{{ site.weibo }}/d643d182/7.png)](http://weibo.com/u/{{ site.weibo }})

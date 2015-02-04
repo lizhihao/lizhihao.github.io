@@ -1,6 +1,6 @@
 markdown: rdiscount
 permalink: /:title/
-url: /
+url: ''
 name: Web Technology
 author: lizhihao
 qq: 312084121

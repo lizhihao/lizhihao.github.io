@@ -20,14 +20,17 @@ tags:
 4. __睡眠模式__：点击开机键，然后放开，就会进入睡眠模式。屏幕会显示广告（买的WIFI版）或者屏保（3G版）。 
 5. __关机__：按住开机键7秒钟或者再久一点，然后放开。关机后屏幕就是白的。 
 6. __重启__：按住开机键约20秒左右，然后放开。Kindle的图标和进程图会显示。如果你的kindle一旦出现缓慢或者不正常，建议你首先重启。 
-7. __以下是免费的kindle英文版电子书网站 
-top 100 free Kindle ebooks, 
-free classics 
-websites with free ebooks 
-中文的书我建议大家看这里，里面也有英文书籍的下载地址__：【Kindle资源】kindle电子书和新闻推送及RSS资源网站汇总 
-8. Kindle每天优惠__：Kindle Daily Deals 这些都是打折的。大部分是1.99刀。 
-9. 适合kindle PW 的游戏__：Games不过大部分要收费的。 
-10. 如何免费从图书馆借书__：Library tutorial对国内的朋友不适用，毕竟大家没有途径办图书卡，不过网上这么多书也够了。 
+7. __以下是免费的kindle英文版电子书网站__: 
+    * top 100 free Kindle ebooks, 
+    * free classics 
+    * websites with free ebooks 
+    中文的书我建议大家看这里，里面也有英文书籍的下载地址
+    * 【Kindle资源】
+    * kindle电子书和新闻推送及
+    * RSS资源网站汇总 
+8. __Kindle每天优惠__：Kindle Daily Deals 这些都是打折的。大部分是1.99刀。 
+9. __适合kindle PW 的游戏__：Games不过大部分要收费的。 
+10. __如何免费从图书馆借书__：Library tutorial对国内的朋友不适用，毕竟大家没有途径办图书卡，不过网上这么多书也够了。 
 
 ## Kindle PW设定
 11. __为你的机器改名__：你可以改变左上角显示的名字。Settings > Personalize your Kindle > Device Name。也可以在Amazon网站里Manage Your Devices改。 

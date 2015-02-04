@@ -9,10 +9,7 @@ tags:
 
 ---
 
-How to use your Kindle 
----
-本文主要内容为转载翻译。原版英文链接如下： 
-http://blog.the-ebook-reader.com/2012/10/28/kindle-paperwhite-tips-and-shortcuts-guide/ 
+本文主要内容为转载翻译。原版英文链接如下：(http://blog.the-ebook-reader.com/2012/10/28/kindle-paperwhite-tips-and-shortcuts-guide/ )
 因为是翻译的老外的文章，所以，有些方法和功能，在中国是不太适用的。有些问题我会特别说明的一下的。 
 
 ## 开始设置和阅读资源

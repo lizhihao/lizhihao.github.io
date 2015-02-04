@@ -4,8 +4,8 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="author" content="{{ site.author }}" />
 		<title>{% if page.path == 'index.html' %}{{ site.name }}{% else %}{% unless page.id %}{{ site.name }} - {% endunless %}{{ page.title }}{% endif %}</title>
-		<link rel="shortcut icon" href="/favicon.ico" />
 		<link href="/feed/" rel="alternate" title="{{ site.author }}" type="application/atom+xml" />
+		<link rel="shortcut icon" href="/media/favicon.ico" />
 		<link rel="stylesheet" href="/media/css/style.css" />
 		<link rel="stylesheet" href="/media/css/highlight.css" />
 		<script type="text/javascript" src="/media/js/jquery-1.7.1.min.js"></script>
@@ -34,9 +34,12 @@
 			</div>
 			<footer>
 				<p><small>
-						<a href="http://github.com/{{ site.github }}/89ao.github.io/new/master/_posts" target="_blank" title="撰写文章">Po</a>wer
-						<a href="http://github.com/{{ site.github }}/89ao.github.io/edit/master/{{ page.path }}" target="_blank" title="编辑页面">ed</a> by 
-						<a href="http://jekyllrb.com" target="_blank">Jekyll</a> @ 
+						<a href="http://github.com/lizhihao/lizhihao.github.io/new/master/_posts" target="_blank" title="撰写文章">New</a>
+						&nbsp;|&nbsp;
+						<a href="http://github.com/lizhihao/lizhihao.github.io/edit/master/{{ page.path }}" target="_blank" title="编辑页面">Edit</a>&nbsp;|&nbsp;
+						Powered by 
+						<a href="http://jekyllrb.com" target="_blank">Jekyll</a> 
+						@ 
 						<a href="http://github.com/{{ site.github }}/89ao.github.io" target="_blank" title="项目主页">GitHub</a> | Copyright 2015 - {{site.time | date:"%Y"}} by 
 						<a href="/about/">lizhihao</a>
 					</small>

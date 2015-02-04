@@ -1,15 +1,15 @@
 markdown: rdiscount
 permalink: /:title/
-url: http://89ao.info
-name: 89Ao.info
-author: AoGang
-qq: 103230005
-email: 89ao@live.com
-duoshuo: 89ao
+url: /
+name: Web Technology
+author: lizhihao
+qq: 312084121
+email: li_zhihao@sina.com
+duoshuo: web
 #beian: 浙ICP备12026616号
 #cnzz: 119959
 weibo: 2067815867
-github: 89ao
+github: lizhihao
 pygments: true
 safe: true
 paginate: 20

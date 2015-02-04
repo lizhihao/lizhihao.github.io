@@ -1,5 +1,5 @@
 ---
-title: 关于
+title: 关于(About)
 layout: page
 comments: no
 
@@ -9,14 +9,14 @@ comments: no
 
 ---
 
-###联系方式：
+###联系方式(Contact)：
 
 {% if site.qq %}
 ＱＱ：[{{ site.qq }}](tencent://message/?uin={{ site.qq }})
 {% endif %}
-网站：[{{ site.name }}]({{ site.url }})
+网站(Website)：[{{ site.name }}]({{ site.url }})
 
-邮箱：[{{ site.email }}](mailto:{{ site.email }})
+邮箱(E-Mail)：[{{ site.email }}](mailto:{{ site.email }})
 
 GitHub : [http://github.com/{{ site.github }}](http://github.com/{{ site.github }})
 

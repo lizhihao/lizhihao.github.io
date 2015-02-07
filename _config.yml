@@ -8,7 +8,7 @@ email: li_zhihao@sina.com
 duoshuo: web
 weibo: lizhihao666
 github: lizhihao
-highlighter: true
+pygments: true
 safe: true
 paginate: 20
 about: "just a software enginer of web . 

@@ -2,7 +2,7 @@
 author: lizhihao
 comments: true
 date: 2015-05-29 03:03:18+00:00
-layout: Career
+layout: post
 slug: Career
 title: 'How-to-succeed-in-the-IT-career'
 thread: 98

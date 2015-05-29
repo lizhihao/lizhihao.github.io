@@ -3,12 +3,16 @@ author: lizhihao
 comments: true
 date: 2015-05-29 03:03:18+00:00
 layout: Career
-slug: linux
+slug: Career
 title: 'How-to-succeed-in-the-IT-career'
 thread: 98
 categories:
 - Career
 ---
+
+==nodejs - 如何完全更新==
+
+----
 
 *   主动
     自我驱动能力强：主动找活(找地盘)，主动贡献。

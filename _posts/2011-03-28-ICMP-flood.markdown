@@ -1,12 +1,4 @@
----
-layout: post
-title: "ICMP洪水攻击原理"
-categories:ddos
-- Linux
-tags:
-- ddos
-- tcp/ip
-
+# ICMP洪水攻击原理
 
 ---
 

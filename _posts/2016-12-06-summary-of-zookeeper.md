@@ -1,7 +1,7 @@
 ---
 author: lzh
 comments: false
-date: 2012-12-12 07:30:17+00:00
+date: 2016-12-06 07:30:17+00:00
 layout: post
 slug: nginx-subdomains-perfect-solution
 title: ZooKeeper原理及其在Hadoop和HBase中的应用

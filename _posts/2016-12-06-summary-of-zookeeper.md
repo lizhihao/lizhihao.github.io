@@ -30,41 +30,41 @@ ZooKeeper是一个开源的分布式协调服务，由雅虎创建，是Google C
 ZooKeeper配置很简单，每个节点的配置文件(zoo.cfg)都是一样的，只有myid文件不一样。myid的值必须是zoo.cfg中server.{数值}的{数值}部分。
 
 zoo.cfg文件内容示例：
-```
-maxClientCnxns=0
-# The number of milliseconds of each tick
-tickTime=2000
-# The number of ticks that the initial
-# synchronization phase can take
-initLimit=10
-# The number of ticks that can pass between
-# sending a request and getting an acknowledgement
-syncLimit=5
-# the directory where the snapshot is stored.
-dataDir=/var/lib/zookeeper/data
-# the port at which the clients will connect
-clientPort=2181
-# the directory where the transaction logs are stored.
-dataLogDir=/var/lib/zookeeper/logs
-server.1=192.168.20.101:2888:3888
-server.2=192.168.20.102:2888:3888
-server.3=192.168.20.103:2888:3888
-server.4=192.168.20.104:2888:3888
-server.5=192.168.20.105:2888:3888
-minSessionTimeout=4000
-maxSessionTimeout=100000
-```
+
+    maxClientCnxns=0
+    # The number of milliseconds of each tick
+    tickTime=2000
+    # The number of ticks that the initial
+    # synchronization phase can take
+    initLimit=10
+    # The number of ticks that can pass between
+    # sending a request and getting an acknowledgement
+    syncLimit=5
+    # the directory where the snapshot is stored.
+    dataDir=/var/lib/zookeeper/data
+    # the port at which the clients will connect
+    clientPort=2181
+    # the directory where the transaction logs are stored.
+    dataLogDir=/var/lib/zookeeper/logs
+    server.1=192.168.20.101:2888:3888
+    server.2=192.168.20.102:2888:3888
+    server.3=192.168.20.103:2888:3888
+    server.4=192.168.20.104:2888:3888
+    server.5=192.168.20.105:2888:3888
+    minSessionTimeout=4000
+    maxSessionTimeout=100000
+
 在装有ZooKeeper的机器的终端执行 zookeeper-server status 可以看当前节点的ZooKeeper是什么角色（Leader or Follower）。
-```
-[root@node-20-103 ~]# zookeeper-server status
-JMX enabled by default
-Using config: /etc/zookeeper/conf/zoo.cfg
-Mode: follower
-[root@node-20-104 ~]# zookeeper-server status
-JMX enabled by default
-Using config: /etc/zookeeper/conf/zoo.cfg
-Mode: leader
-```
+
+    [root@node-20-103 ~]# zookeeper-server status
+    JMX enabled by default
+    Using config: /etc/zookeeper/conf/zoo.cfg
+    Mode: follower
+    [root@node-20-104 ~]# zookeeper-server status
+    JMX enabled by default
+    Using config: /etc/zookeeper/conf/zoo.cfg
+    Mode: leader
+
 如上，node-20-104是Leader，node-20-103是follower。
 
 ZooKeeper默认只有Leader和Follower两种角色，没有Observer角色。
@@ -104,23 +104,22 @@ ZooKeeper的每个ZNode上都会存储数据，对应于每个ZNode，ZooKeeper�
 ## 状态信息
 
 每个ZNode除了存储数据内容之外，还存储了ZNode本身的一些状态信息。用 get 命令可以同时获得某个ZNode的内容和状态信息。如下：
-```
-[zk: localhost:2181(CONNECTED) 23] get /yarn-leader-election/appcluster-yarn/ActiveBreadCrumb
 
-appcluster-yarnrm1
-cZxid = 0x1b00133dc0    //Created ZXID,表示该ZNode被创建时的事务ID
-ctime = Tue Jan 03 15:44:42 CST 2017    //Created Time,表示该ZNode被创建的时间
-mZxid = 0x1d00000063    //Modified ZXID，表示该ZNode最后一次被更新时的事务ID
-mtime = Fri Jan 06 08:44:25 CST 2017    //Modified Time，表示该节点最后一次被更新的时间
-pZxid = 0x1b00133dc0    //表示该节点的子节点列表最后一次被修改时的事务ID。注意，只有子节点列表变更了才会变更pZxid，子节点内容变更不会影响pZxid。
-cversion = 0    //子节点的版本号
-dataVersion = 11    //数据节点的版本号
-aclVersion = 0    //ACL版本号
-ephemeralOwner = 0x0    //创建该节点的会话的seddionID。如果该节点是持久节点，那么这个属性值为0。
-dataLength = 22    //数据内容的长度
-numChildren = 0    //子节点的个数
-在ZooKeeper中，version属性是用来实现乐观锁机制中的『写入校验』的（保证分布式数据原子性操作）。
-```
+    [zk: localhost:2181(CONNECTED) 23] get /yarn-leader-election/appcluster-yarn/ActiveBreadCrumb
+    appcluster-yarnrm1
+    cZxid = 0x1b00133dc0    //Created ZXID,表示该ZNode被创建时的事务ID
+    ctime = Tue Jan 03 15:44:42 CST 2017    //Created Time,表示该ZNode被创建的时间
+    mZxid = 0x1d00000063    //Modified ZXID，表示该ZNode最后一次被更新时的事务ID
+    mtime = Fri Jan 06 08:44:25 CST 2017    //Modified Time，表示该节点最后一次被更新的时间
+    pZxid = 0x1b00133dc0    //表示该节点的子节点列表最后一次被修改时的事务ID。注意，只有子节点列表变更了才会变更pZxid，子节点内容变更不会影响pZxid。
+    cversion = 0    //子节点的版本号
+    dataVersion = 11    //数据节点的版本号
+    aclVersion = 0    //ACL版本号
+    ephemeralOwner = 0x0    //创建该节点的会话的seddionID。如果该节点是持久节点，那么这个属性值为0。
+    dataLength = 22    //数据内容的长度
+    numChildren = 0    //子节点的个数
+    在ZooKeeper中，version属性是用来实现乐观锁机制中的『写入校验』的（保证分布式数据原子性操作）。
+    
 ## 事务操作
 
 在ZooKeeper中，能改变ZooKeeper服务器状态的操作称为事务操作。一般包括数据节点创建与删除、数据内容更新和客户端会话创建与失效等操作。对应每一个事务请求，ZooKeeper都会为其分配一个全局唯一的事务ID，用ZXID表示，通常是一个64位的数字。每一个ZXID对应一次更新操作，从这些ZXID中可以间接地识别出ZooKeeper处理这些事务操作请求的全局顺序。
@@ -238,10 +237,10 @@ ZooKeeper上的一个ZNode可以表示一个锁。例如/exclusive_lock/lock节�
 共享锁（Shared Locks，简称S锁），又称为读锁。如果事务T1对数据对象O1加上了共享锁，那么T1只能对O1进行读操作，其他事务也能同时对O1加共享锁（不能是排他锁），直到O1上的所有共享锁都释放后O1才能被加排他锁。
 总结：可以多个事务同时获得一个对象的共享锁（同时读），有共享锁就不能再加排他锁（因为排他锁是写锁）
 
-ZooKeeper在大型分布式系统中的应用
+## ZooKeeper在大型分布式系统中的应用
 前面已经介绍了ZooKeeper的典型应用场景。本节将以常见的大数据产品Hadoop和HBase为例来介绍ZooKeeper在其中的应用，帮助大家更好地理解ZooKeeper的分布式应用场景。
 
-ZooKeeper在Hadoop中的应用
+### ZooKeeper在Hadoop中的应用
 
 在Hadoop中，ZooKeeper主要用于实现HA(Hive Availability），包括HDFS的NamaNode和YARN的ResourceManager的HA。同时，在YARN中，ZooKeepr还用来存储应用的运行状态。HDFS的NamaNode和YARN的ResourceManager利用ZooKeepr实现HA的原理是一样的，所以本节以YARN为例来介绍。
 
@@ -253,26 +252,26 @@ ResourceManager负责集群中所有资源的统一管理和分配，同时接�
 
 为了实现HA，必须有多个ResourceManager并存（一般就两个），并且只有一个ResourceManager处于Active状态，其他的则处于Standby状态，当Active节点无法正常工作（如机器宕机或重启）时，处于Standby的就会通过竞争选举产生新的Active节点。
 
-主备切换
+## 主备切换
 
 下面我们就来看看YARN是如何实现多个ResourceManager之间的主备切换的。
 
 创建锁节点 在ZooKeeper上会有一个/yarn-leader-election/appcluster-yarn的锁节点，所有的ResourceManager在启动的时候，都会去竞争写一个Lock子节点：/yarn-leader-election/appcluster-yarn/ActiveBreadCrumb，该节点是临时节点。ZooKeepr能够为我们保证最终只有一个ResourceManager能够创建成功。创建成功的那个ResourceManager就切换为Active状态，没有成功的那些ResourceManager则切换为Standby状态。
 
-[zk: localhost:2181(CONNECTED) 16] get /yarn-leader-election/appcluster-yarn/ActiveBreadCrumb
+    [zk: localhost:2181(CONNECTED) 16] get /yarn-leader-election/appcluster-yarn/ActiveBreadCrumb
 
-appcluster-yarnrm2
-cZxid = 0x1b00133dc0
-ctime = Tue Jan 03 15:44:42 CST 2017
-mZxid = 0x1f00000540
-mtime = Sat Jan 07 00:50:20 CST 2017
-pZxid = 0x1b00133dc0
-cversion = 0
-dataVersion = 28
-aclVersion = 0
-ephemeralOwner = 0x0
-dataLength = 22
-numChildren = 0
+    appcluster-yarnrm2
+    cZxid = 0x1b00133dc0
+    ctime = Tue Jan 03 15:44:42 CST 2017
+    mZxid = 0x1f00000540
+    mtime = Sat Jan 07 00:50:20 CST 2017
+    pZxid = 0x1b00133dc0
+    cversion = 0
+    dataVersion = 28
+    aclVersion = 0
+    ephemeralOwner = 0x0
+    dataLength = 22
+    numChildren = 0
 可以看到此时集群中ResourceManager2为Active。
 
 注册Watcher监听 所有Standby状态的ResourceManager都会向/yarn-leader-election/appcluster-yarn/ActiveBreadCrumb节点注册一个节点变更的Watcher监听，利用临时节点的特性，能够快速感知到Active状态的ResourceManager的运行情况。
@@ -283,7 +282,7 @@ numChildren = 0
 
 HDFS中NameNode的HA的实现原理跟YARN中ResourceManager的HA的实现原理相同。其锁节点为/hadoop-ha/mycluster/ActiveBreadCrumb。
 
-ResourceManager状态存储
+###ResourceManager状态存储
 
 在 ResourceManager 中，RMStateStore 能够存储一些 RM 的内部状态信息，包括 Application 以及它们的 Attempts 信息、Delegation Token 及 Version Information 等。需要注意的是，RMStateStore 中的绝大多数状态信息都是不需要持久化存储的，因为很容易从上下文信息中将其重构出来，如资源的使用情况。在存储的设计方案中，提供了三种可能的实现，分别如下。
 
@@ -301,31 +300,32 @@ ZooKeepr在Hadoop中的应用主要有：
 
 HDFS中NameNode的HA和YARN中ResourceManager的HA。
 存储RMStateStore状态信息
-ZooKeeper在HBase中的应用
+
+## ZooKeeper在HBase中的应用
 
 HBase主要用ZooKeeper来实现HMaster选举与主备切换、系统容错、RootRegion管理、Region状态管理和分布式SplitWAL任务管理等。
 
-HMaster选举与主备切换
+###HMaster选举与主备切换
 
 HMaster选举与主备切换的原理和HDFS中NameNode及YARN中ResourceManager的HA原理相同。
 
-系统容错
+###系统容错
 
 当HBase启动时，每个RegionServer都会到ZooKeeper的/hbase/rs节点下创建一个信息节点（下文中，我们称该节点为"rs状态节点"），例如/hbase/rs/[Hostname]，同时，HMaster会对这个节点注册监听。当某个 RegionServer 挂掉的时候，ZooKeeper会因为在一段时间内无法接受其心跳（即 Session 失效），而删除掉该 RegionServer 服务器对应的 rs 状态节点。与此同时，HMaster 则会接收到 ZooKeeper 的 NodeDelete 通知，从而感知到某个节点断开，并立即开始容错工作。
 
 HBase为什么不直接让HMaster来负责RegionServer的监控呢？如果HMaster直接通过心跳机制等来管理RegionServer的状态，随着集群越来越大，HMaster的管理负担会越来越重，另外它自身也有挂掉的可能，因此数据还需要持久化。在这种情况下，ZooKeeper就成了理想的选择。
 
-RootRegion管理
+###RootRegion管理
 
 对应HBase集群来说，数据存储的位置信息是记录在元数据region，也就是RootRegion上的。每次客户端发起新的请求，需要知道数据的位置，就会去查询RootRegion，而RootRegion自身位置则是记录在ZooKeeper上的（默认情况下，是记录在ZooKeeper的/hbase/meta-region-server节点中）。当RootRegion发生变化，比如Region的手工移动、重新负载均衡或RootRegion所在服务器发生了故障等是，就能够通过ZooKeeper来感知到这一变化并做出一系列相应的容灾措施，从而保证客户端总是能够拿到正确的RootRegion信息。
 
-Region管理
+###Region管理
 
 HBase里的Region会经常发生变更，这些变更的原因来自于系统故障、负载均衡、配置修改、Region分裂与合并等。一旦Region发生移动，它就会经历下线（offline）和重新上线（online）的过程。
 
 在下线期间数据是不能被访问的，并且Region的这个状态变化必须让全局知晓，否则可能会出现事务性的异常。对于大的HBase集群来说，Region的数量可能会多达十万级别，甚至更多，这样规模的Region状态管理交给ZooKeeper来做也是一个很好的选择。
 
-分布式SplitWAL任务管理
+###分布式SplitWAL任务管理
 
 当某台RegionServer服务器挂掉时，由于总有一部分新写入的数据还没有持久化到HFile中，因此在迁移该RegionServer的服务时，一个重要的工作就是从WAL中恢复这部分还在内存中的数据，而这部分工作最关键的一步就是SplitWAL，即HMaster需要遍历该RegionServer服务器的WAL，并按Region切分成小块移动到新的地址下，并进行日志的回放（replay）。
 

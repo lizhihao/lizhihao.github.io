@@ -3,7 +3,7 @@ author: lzh
 comments: false
 date: 2016-12-06 07:30:17+00:00
 layout: post
-slug: nginx-subdomains-perfect-solution
+slug: summary-of-zk
 title: ZooKeeper原理及其在Hadoop和HBase中的应用
 thread: 117
 categories:

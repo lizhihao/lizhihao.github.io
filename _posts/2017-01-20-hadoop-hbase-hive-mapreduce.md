@@ -1,7 +1,15 @@
 
+---
+layout: post
+title: "大数据Hadoop核心架构HDFS+MapReduce+Hbase+Hive内部机理"
+categories:ddos
+- data
+tags:
+- data
 
-大数据Hadoop核心架构HDFS+MapReduce+Hbase+Hive内部机理详解
-标签： hadoophdfsmapreducehbasehive
+
+---
+
 
 
 [转]http://blog.csdn.net/yczws1/article/details/19178265
@@ -50,10 +58,6 @@ HDFS和MR共同组成Hadoop分布式系统体系结构的核心。HDFS在集群�
 Hadoop上的并行应用程序开发是基于MR编程框架。MR编程模型原理：利用一个输入的key-value对集合来产生一个输出的key-value对集合。MR库通过Map和Reduce两个函数来实现这个框架。用户自定义的map函数接受一个输入的key-value对，然后产生一个中间的key-value对的集合。MR把所有具有相同的key值的value结合在一起，然后传递个reduce函数。Reduce函数接受key和相关的value结合，reduce函数合并这些value值，形成一个较小的value集合。通常我们通过一个迭代器把中间的value值提供给reduce函数（迭代器的作用就是收集这些value值），这样就可以处理无法全部放在内存中的大量的value值集合了。
 
 
-
-
-
-             
 ![](/media/pic/20140214000824328.jpeg)             
 ![](/media/pic/20140214000842812.jpeg)             
 ![](/media/pic/20140214001006984.jpeg)             

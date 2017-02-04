@@ -1,7 +1,7 @@
 ---
 author: lzh
 comments: false
-date: 2017-01-20 07:30:17+00:00
+date: 2017-02-04 07:30:17+00:00
 layout: post
 title: "分布式领域架构师要掌握的技术"
 thread: 117
@@ -9,6 +9,7 @@ categories:
 - DATA
 - distributed
 ---
+
 分布式 架构 线程 高并发 负载均衡 Server 分布式系统
 
 # 摘要

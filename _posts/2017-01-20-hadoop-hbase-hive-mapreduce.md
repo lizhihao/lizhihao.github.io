@@ -1,14 +1,14 @@
 ---
+author: lzh
+comments: false
+date: 2017-01-20 07:30:17+00:00
 layout: post
 title: "大数据Hadoop核心架构HDFS+MapReduce+Hbase+Hive内部机理"
-categories:ddos
-- data
-tags:
-- data
+thread: 117
+categories:
+- DATA
 ---
 
-纯干货：Hadoop核心架构HDFS+MapReduce+Hbase+Hive内部机理详解。
------
 
 [转]http://blog.csdn.net/yczws1/article/details/19178265
 

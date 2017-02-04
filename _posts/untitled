@@ -1,0 +1,107 @@
+---------------------------
+haproxy
+varnish
+nginx
+lvs
+
+---------------------------
+lvs
+keep alive	
+Puppet
+Jenkins
+supervisor
+	用Python开发的一套通用的进程管理程序，能将一个普通的命令行进程变为后台daemon，并监控进程状态，异常退出时能自动重启。
+
+Consul
+	http://10.6.8.71/wiki/monitoring_system
+nagios
+Sensu: 	
+	http://10.6.8.71/wiki/SensuMonitoringSystem
+----------------------------
+
+来自 Google 的高可用架构理念与实践
+https://blog.coding.net/blog/architecture-concept-and-practice-from-Google
+
+SLA: Service-Level Agreement的缩写，意思是服务等级协议。
+NXG Downtime peryear 10 hour,
+
+ 内部只有99.99% 以上的服务才会配备 SRE，SRE 是必须在接到报警 5 分钟之内上线处理问题的，否则报警系统自动升级到下一个 SRE。如果还没有，直接给老板发报警。
+
+但是从99.9%往上，就基本超出了人力的范畴，考验的是业务的自愈能力，架构的容灾,容错设计，灾备系统的完善等等。
+
+
+MTBF: Mean time between Failures。 用通俗的话讲，就是一个东西有多不可靠，多长时间坏一次。
+MTTR: Mean time to recover。意思就是一旦坏了，恢复服务的时间需要多长。
+Availability = function(MTBF, MTTR)
+
+提高MTBF， 降低MTTR；
+MTBF 最大的因素： 升级；
+一、提高冗余度，多实例运行，用资源换可用性。
+	方案一： 提高冗余度，多实例运行，用资源换可用性。N + 2 ,一个热备，一个升级
+	方案二： 实例之间必须对等、独立。
+	方案三： 流量控制能力非常重要。
+		Isolation。A 用户发来的请求可能和 B 用户发来的请求同时处理的时候有冲突，需要隔离。
+		Quarantine。用户 A 发来的请求可能资源消耗超标，必须能将这类请求钉死在有限的几个节点上，从而顾全大局。
+		Query-of-death。大家都遇到过吧。上线之后一个用户发来个一个异常请求直接搞挂服务。连续多发几个，整个集群都挂没了，高可用还怎么做到？那么，对这种类型的防范就是要在死掉几台服务器之后可以自动屏蔽类似的请求。需要结合业务去具体分析。
+二、变更管理（Change Management）
+	第一点：线下测试（Offline Test）
+	第二点：灰度发布
+	第三点：服务必须对回滚提供支持
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql inodb 模型
+	innodb在一定程度上实现了行锁的功能，在功能上与ORACLE差不多。但innodb行锁的实现与oracle不相同，innodb的行锁加在索引上，如果没有索引，整张表都会被锁定，下面是实验过程。
+	innodb 使用 B+ tree / B- tree 作为数据结构
+
+设计模式
+高并发
+docker
+python
+kubernetes
+数据库技巧
+
+js优化加载顺序
+数据结构
+tcp/ip 长连接与短连接 
+hadoop
+	HDFS
+	MapReduce
+		HDFS在集群上实现了分布式文件系统，MR在集群上实现了分布式计算和任务处理。
+	HBase
+		Hbase就是Hadoop database
+	Hive
+		Hive中所有的数据都存储在HDFS中
+Storm
+Spark
+Druid
+
+Kafaka
+Couchbase
+Cassandra
+ActiveMQ
+MongoDB
+
+
+
+1. java 基本数据类型string 和string类，是不同的。一个是
+	从存储位置上来说：
+	基本数据类型存储在栈区，String属于对象类型存储在堆区。
+	从参数传递方面来说：
+	基本数据类型采用的是值传递，而String采用的是引用传递。
+	不过由于String内部实现采用了final关键字，这就导致对于String的每次更改都是在创建新的String对象，所以如果一个函数对传进来的String类型做了更改实际上是不会影响到传进来前的String对象的值得。
+2. java 文件名必须和文件中唯一的Public 类相同；
+3. java 一个文件中，只能有一个public 类；
+4. abstract 不能实例化对象；

@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: "大数据Hadoop核心架构HDFS+MapReduce+Hbase+Hive内部机理"
@@ -6,14 +5,13 @@ categories:ddos
 - data
 tags:
 - data
-
-
 ---
 
-
+纯干货：Hadoop核心架构HDFS+MapReduce+Hbase+Hive内部机理详解。
+-----
 
 [转]http://blog.csdn.net/yczws1/article/details/19178265
-纯干货：Hadoop核心架构HDFS+MapReduce+Hbase+Hive内部机理详解。
+
 
 通过这一阶段的调研总结，从内部机理的角度详细分析，HDFS、MapReduce、Hbase、Hive是如何运行，以及基于Hadoop数据仓库的构建和分布式数据库内部具体实现。如有不足，后续及时修改。
 # HDFS的体系架构

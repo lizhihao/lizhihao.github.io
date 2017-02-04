@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: "分布式领域架构师要掌握的技术"
@@ -7,8 +6,6 @@ categories:distributed
 tags:
 - distributed
 - technology
-
-
 ---
 
 分布式 架构 线程 高并发 负载均衡 Server 分布式系统

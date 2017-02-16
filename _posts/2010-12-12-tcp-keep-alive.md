@@ -1,13 +1,10 @@
 ---
 author: lzh
-comments: false
 date: 2010-12-12 07:30:17+00:00
 layout: post
-slug: nginx-subdomains-perfect-solution
 title: TCP长连接与短连接的区别
-thread: 117
 categories:
-- TCP
+- TCP/IP
 ---
 
 	

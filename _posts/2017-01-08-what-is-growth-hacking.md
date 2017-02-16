@@ -1,13 +1,10 @@
-
 ---
 layout: post
-title: "ICMP洪水攻击原理"
-categories:ddos
-- Linux
+title: "Growth Hacking 介绍"
+categories:
+- News
 tags:
-- ddos
-- tcp/ip
-
+- news
 
 ---
 

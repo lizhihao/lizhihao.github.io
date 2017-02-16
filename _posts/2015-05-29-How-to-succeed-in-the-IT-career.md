@@ -4,13 +4,12 @@ comments: true
 date: 2015-05-29 03:03:18+00:00
 layout: post
 slug: Career
-title: 'How-to-succeed-in-the-IT-career'
-thread: 98
+title: '程序员职业的心态调整'
 categories:
 - Career
 ---
 
-==nodejs - 如何完全更新==
+==IT 职业的心态调整==
 
 ----
 

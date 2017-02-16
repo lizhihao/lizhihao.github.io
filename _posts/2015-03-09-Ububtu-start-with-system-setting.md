@@ -3,9 +3,7 @@ author: lizhihao
 comments: true
 date: 2015-03-09 03:03:18+00:00
 layout: post
-slug: linux start system
-title: 'linux start system'
-thread: 98
+title: 'ubuntu下设置开机自启动项'
 categories:
 - Linux 
 ---

@@ -1,4 +1,19 @@
 
+SQL:
+	DISTINCT
+	SELECT * FROM Websites WHERE name NOT BETWEEN 'A' AND 'H';
+	SELECT name AS n, country AS c FROM Websites;
+	SELECT Websites.name, Websites.url, access_log.count, access_log.date FROM Websites, access_log WHERE Websites.id=access_log.site_id and Websites.name="菜鸟教程";
+	SELECT column_name(s) FROM table1 JOIN table2 ON table1.column_name=table2.column_name;
+	SELECT country FROM Websites UNION SELECT country FROM apps ORDER BY country;
+	SELECT * INTO WebsitesBackup2016 FROM Websites WHERE country='CN';
+
+	TRUNCATE TABLE table_name;// del data
+	DROP DATABASE database_name; //del index, table, db
+	SELECT Websites.name,COUNT(access_log.aid) AS nums FROM access_log LEFT JOIN Websites ON access_log.site_id=Websites.id GROUP BY Websites.name;
+正则:
+
+
 
 
 ---------------------------
@@ -107,3 +122,30 @@ MongoDB
 2. java 文件名必须和文件中唯一的Public 类相同；
 3. java 一个文件中，只能有一个public 类；
 4. abstract 不能实例化对象；
+
+
+
+项目描述 
+归属于搜狗桌面商业业务部，主要负责搜狗网址导航各个频道的开发。主站包括123.sogou.com,hao.qq.com等，二级站包括搜狗影视、搜狗购物、搜狗旅游、搜狗笑话等多个频道。 
+目前部门在除了PC端，在移动端也进行了扩张，APP端如搜狗应用市场、搜狗Wifi钥匙、以及各个导航站的无线化。 
+  
+职位描述 
+1、负责Sogou PC导航站、搜狗市场等产品核心后端模块的设计、开发 
+2、能在每天数亿请求的情况下，保证服务稳定性 
+3、具备优秀的需求分析能力，能对特定需求给出最优实现方案 
+4、积极配合产品、其它组研发同事、测试，保证项目推进 
+5、对新技术进行调研，并能将成果应用于项目中 
+  
+职位要求 
+1、本科及以上学历，计算机相关专业，具有2年以上实际项目开发经验 
+2、熟悉Web相关技术：PHP、Linux、MySQL等 
+3、具有丰富的web相关的项目经验 
+4、较强的自我驱动能力，勇于挑战自我 
+5、熟悉javascript，html等前端技能加分 
+6、从事过一线互联网产品开发工作 
+  
+职位优势 
+1、项目制，成长快 
+2、良好的团队氛围 
+3、优厚的福利待遇 
+4、弹性工作制 

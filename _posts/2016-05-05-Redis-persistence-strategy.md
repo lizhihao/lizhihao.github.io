@@ -2,7 +2,7 @@
 author: lzh
 date: 2016-05-05 07:30:17+00:00
 layout: post
-title: Redis持久化策略
+title: "Redis持久化策略"
 categories:
 - Redis
 
@@ -10,8 +10,6 @@ categories:
 
 
 # Redis持久化策略
-
-标签（空格分隔）： Redis  持久化
 
 ---
 

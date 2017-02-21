@@ -11,7 +11,7 @@ categories:
 
 # Redis持久化策略
 
----
+-----
 
 redis 提供两种持久化方式：RDB 和 AOF。redis 允许两者结合，也允许两者同时关闭。
 

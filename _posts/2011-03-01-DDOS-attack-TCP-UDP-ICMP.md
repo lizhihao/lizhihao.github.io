@@ -1,4 +1,15 @@
-﻿# DDOS attack (TCP UDP ICMP)
+﻿---
+author: lzh
+date: 2011-03-01 07:30:17+00:00
+layout: post
+title: DDOS attack
+categories:
+- TCP/IP
+- DDOS
+---
+
+
+# DDOS attack (TCP UDP ICMP)
 
 标签（空格分隔）： 未分类
 

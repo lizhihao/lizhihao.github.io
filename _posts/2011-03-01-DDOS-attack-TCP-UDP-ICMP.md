@@ -2,7 +2,7 @@
 author: lzh
 date: 2011-03-01 07:30:17+00:00
 layout: post
-title: DDOS attack
+title: "DDOS攻击原理"
 categories:
 - TCP/IP
 - DDOS

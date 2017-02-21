@@ -184,14 +184,14 @@ Web系统大规模并发——电商秒杀与抢购
 
 # 五、乐观锁vs悲观锁
 
-## 简介
+## 1. 简介
 悲观锁(Pessimistic Lock), 顾名思义，就是很悲观，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会block直到它拿到锁。传统的关系型数据库里边就用到了很多这种锁机制，比如行锁，表锁等，读锁，写锁等，都是在做操作之前先上锁。
 
 乐观锁(Optimistic Lock), 顾名思义，就是很乐观，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，可以使用版本号等机制。乐观锁适用于多读的应用类型，这样可以提高吞吐量，像数据库如果提供类似于write_condition机制的其实都是提供的乐观锁。
 
 两种锁各有优缺点，不可认为一种好于另一种，像乐观锁适用于写比较少的情况下，即冲突真的很少发生的时候，这样可以省去了锁的开销，加大了系统的整个吞吐量。但如果经常产生冲突，上层应用会不断的进行retry，这样反倒是降低了性能，所以这种情况下用悲观锁就比较合适
 
-## 实例1
+## 2. 实例1
 
 redis使用watch完成秒杀抢购功能：
 使用redis中两个key完成秒杀抢购功能，mywatchkey用于存储抢购数量和mywatchlist用户存储抢购列表。
@@ -232,7 +232,7 @@ redis使用watch完成秒杀抢购功能：
     }    
     ?>    
 
-## 实例2
+## 3. 实例2
 在高并发下，经常需要处理SELECT之后，在业务层处理逻辑，再执行UPDATE的情况。
 若两个连接并发查询同一条数据，然后在执行一些逻辑判断或业务操作后，执行UPDATE，可能出现与预期不相符的结果。
 在不使用悲观锁与复杂SQL的前提下，可以使用乐观锁处理该问题，同时兼顾性能。
@@ -243,29 +243,29 @@ redis使用watch完成秒杀抢购功能：
 
 　　当id每使用一次，use_count要加1。当use_count大于1000时，这个id就不能在被使用了（换句话说 无法从数据库中查出）。
 
-　　在高并发情况下，会遇到一种问题：假设数据表中有一条记录为：id=123456, use_count=999
-　　A与B两个连接并发查询这个id=123456，都执行下列SQL:
+在高并发情况下，会遇到一种问题：假设数据表中有一条记录为：id=123456, use_count=999
+A与B两个连接并发查询这个id=123456，都执行下列SQL:
 
     SELECT * FROM table WHERE id=123456 and use_count < 1000;
-　　A先执行，得到id=123456的use_count是999，之后在程序里做了一些逻辑判断或业务操作后执行SQL：
+A先执行，得到id=123456的use_count是999，之后在程序里做了一些逻辑判断或业务操作后执行SQL：
 
     UPDATE table SET use_count + 1 WHERE id=123456;
-　　在A做判断且没有update之前，B也执行了查询SQL，发现use_count是999，之后它也会执行SQL：
+在A做判断且没有update之前，B也执行了查询SQL，发现use_count是999，之后它也会执行SQL：
 
     UPDATE table SET use_count + 1 WHERE id=123456;
 　　但是，事实上B不应该取得这个id，因为A已经是第1000个使用者。
 
-　　处理步骤如下：
-　　1、添加第3个字段version，int类型，default值为0。version值每次update时作加1处理。
+处理步骤如下：
+1、添加第3个字段version，int类型，default值为0。version值每次update时作加1处理。
 
     ALTER TABLE table ADD COLUMN version INT DEFAULT '0' NOT NULL AFTER use_count;
-　　2、SELECT时同时获取version值（例如为3）。
+2、SELECT时同时获取version值（例如为3）。
 
     SELECT use_count, version FROM table WHERE id=123456 AND use_count < 1000;
-　　3、UPDATE时检查version值是否为第2步获取到的值。
+3、UPDATE时检查version值是否为第2步获取到的值。
 
     UPDATE table SET version=4, use_count=use_count+1 WHERE id=123456 AND version=3;
-　　如果UPDATE的记录数为1，则表示成功。
+如果UPDATE的记录数为1，则表示成功。
 如果UPDATE的记录数为0，则表示已经被其他连接UPDATE过了，需作异常处理。
 
 

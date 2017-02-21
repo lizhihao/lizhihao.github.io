@@ -173,7 +173,100 @@ Web系统大规模并发——电商秒杀与抢购
 
 有很多软件和服务都“乐观锁”功能的支持，例如Redis中的watch就是其中之一。通过这个实现，我们保证了数据的安全。
 
+
+
+
 # 四、小结
 
 互联网正在高速发展，使用互联网服务的用户越多，高并发的场景也变得越来越多。电商秒杀和抢购，是两个比较典型的互联网高并发场景。虽然我们解决问题的具体技术方案可能千差万别，但是遇到的挑战却是相似的，因此解决问题的思路也异曲同工。   
+
 [转]：http://www.kuqin.com/shuoit/20141203/343669.html
+
+# 五、乐观锁vs悲观锁
+
+## 简介
+悲观锁(Pessimistic Lock), 顾名思义，就是很悲观，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会block直到它拿到锁。传统的关系型数据库里边就用到了很多这种锁机制，比如行锁，表锁等，读锁，写锁等，都是在做操作之前先上锁。
+
+乐观锁(Optimistic Lock), 顾名思义，就是很乐观，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，可以使用版本号等机制。乐观锁适用于多读的应用类型，这样可以提高吞吐量，像数据库如果提供类似于write_condition机制的其实都是提供的乐观锁。
+
+两种锁各有优缺点，不可认为一种好于另一种，像乐观锁适用于写比较少的情况下，即冲突真的很少发生的时候，这样可以省去了锁的开销，加大了系统的整个吞吐量。但如果经常产生冲突，上层应用会不断的进行retry，这样反倒是降低了性能，所以这种情况下用悲观锁就比较合适
+
+## 实例1
+
+redis使用watch完成秒杀抢购功能：
+使用redis中两个key完成秒杀抢购功能，mywatchkey用于存储抢购数量和mywatchlist用户存储抢购列表。
+它的优点如下：
+1. 首先选用内存数据库来抢购速度极快。
+2. 速度快并发自然没不是问题。
+3. 使用悲观锁，会迅速增加系统资源。
+4. 比队列强的多，队列会使你的内存数据库资源瞬间爆棚。
+5. 使用乐观锁，达到综合需求。
+
+我觉得以下代码肯定是你想要的。
+
+    <?php    
+    header("content-type:text/html;charset=utf-8");    
+    $redis = new redis();    
+    $result = $redis->connect('10.10.10.119', 6379);    
+    $mywatchkey = $redis->get("mywatchkey");    
+    $rob_total = 100;   //抢购数量    
+    if($mywatchkey<$rob_total){    
+        $redis->watch("mywatchkey");    
+        $redis->multi();    
+            
+        //设置延迟，方便测试效果。    
+        sleep(5);    
+        //插入抢购数据    
+        $redis->hSet("mywatchlist","user_id_".mt_rand(1, 9999),time());    
+        $redis->set("mywatchkey",$mywatchkey+1);    
+        $rob_result = $redis->exec();    
+        if($rob_result){    
+            $mywatchlist = $redis->hGetAll("mywatchlist");    
+            echo "抢购成功！<br/>";    
+            echo "剩余数量：".($rob_total-$mywatchkey-1)."<br/>";    
+            echo "用户列表：<pre>";    
+            var_dump($mywatchlist);    
+        }else{    
+            echo "手气不好，再抢购！";exit;    
+        }    
+    }    
+    ?>    
+
+## 实例2
+在高并发下，经常需要处理SELECT之后，在业务层处理逻辑，再执行UPDATE的情况。
+若两个连接并发查询同一条数据，然后在执行一些逻辑判断或业务操作后，执行UPDATE，可能出现与预期不相符的结果。
+在不使用悲观锁与复杂SQL的前提下，可以使用乐观锁处理该问题，同时兼顾性能。
+
+　　场景模拟：
+　　假设一张表两个字段，一个id，一个use_count。
+表里存了100个id，每个id对应自己的use_count。
+
+　　当id每使用一次，use_count要加1。当use_count大于1000时，这个id就不能在被使用了（换句话说 无法从数据库中查出）。
+
+　　在高并发情况下，会遇到一种问题：假设数据表中有一条记录为：id=123456, use_count=999
+　　A与B两个连接并发查询这个id=123456，都执行下列SQL:
+
+    SELECT * FROM table WHERE id=123456 and use_count < 1000;
+　　A先执行，得到id=123456的use_count是999，之后在程序里做了一些逻辑判断或业务操作后执行SQL：
+
+    UPDATE table SET use_count + 1 WHERE id=123456;
+　　在A做判断且没有update之前，B也执行了查询SQL，发现use_count是999，之后它也会执行SQL：
+
+    UPDATE table SET use_count + 1 WHERE id=123456;
+　　但是，事实上B不应该取得这个id，因为A已经是第1000个使用者。
+
+　　处理步骤如下：
+　　1、添加第3个字段version，int类型，default值为0。version值每次update时作加1处理。
+
+    ALTER TABLE table ADD COLUMN version INT DEFAULT '0' NOT NULL AFTER use_count;
+　　2、SELECT时同时获取version值（例如为3）。
+
+    SELECT use_count, version FROM table WHERE id=123456 AND use_count < 1000;
+　　3、UPDATE时检查version值是否为第2步获取到的值。
+
+    UPDATE table SET version=4, use_count=use_count+1 WHERE id=123456 AND version=3;
+　　如果UPDATE的记录数为1，则表示成功。
+如果UPDATE的记录数为0，则表示已经被其他连接UPDATE过了，需作异常处理。
+
+
+

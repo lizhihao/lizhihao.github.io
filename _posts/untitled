@@ -13,8 +13,8 @@ SQL:
 	SELECT Websites.name,COUNT(access_log.aid) AS nums FROM access_log LEFT JOIN Websites ON access_log.site_id=Websites.id GROUP BY Websites.name;
 正则:
 
-
-
+31.69
+268.31
 
 ---------------------------
 haproxy

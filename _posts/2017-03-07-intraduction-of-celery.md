@@ -47,12 +47,12 @@ Celery worker 就是执行任务的一方，它负责接收任务处理中间方
 Celery 支持任务处理完后将状态信息和结果的保存，以供查询。Celery 内置支持 rpc, Django ORM，Redis，RabbitMQ 等方式来保存任务处理后的状态信息。
 
 # 构建第一个 Celery 程序
-在我们的第一个 Celery 程序中，我们尝试在 Celery 中构建一个“将新鲜事通知到朋友”的任务，并且尝试通过编写一个 Python 程序来启动这个任务。
+在我们的第一个Celery程序中，我们尝试在Celery中构建一个“将新鲜事通知到朋友”的任务，并且尝试通过编写一个 Python 程序来启动这个任务。
 ## 安装 Celery
 
     Pip install celery
 ## 选择合适的消息代理中间件
-Celery 支持 RabbitMQ、Redis 甚至其他数据库系统作为其消息代理中间件，在本文中，我们选择 RabbitMQ 作为消息代理中间件。
+Celery支持RabbitMQ、Redis甚至其他数据库系统作为其消息代理中间件，在本文中，我们选择RabbitMQ 作为消息代理中间件。
 
     sudo apt-get install rabbitmq-server
 ## 创建 Celery 对象
@@ -71,7 +71,8 @@ Celery 对象是所有 Celery 功能的入口，所以在开始其它工作之�
 在本文中，为了模拟真实的应用场景，我们定义了 notify_friends 这个任务，它接受两个参数，并且在输出流中打印出一定的信息，
 ## 创建 Celery Worker 服务进程
 在定义完 Celery 对象后，我们可以创建对应的任务消费者--Celery worker 进程，后续的任务处理请求都是由这个 Celery worker 进程来最终执行的。
-celery -A celery_test worker --loglevel=info
+    
+    celery -A notify_friends worker --loglevel=info
 ## 在 Python 程序中调用 Celery Task
 我们创建一个简单的 Python 程序，来触发 notify_friends 这个任务。
 
@@ -79,10 +80,10 @@ celery -A celery_test worker --loglevel=info
     from notify_friends import notify_friends
     import time
     def notify(userId, messageId):
-     result = notify_friends.delay(userId, messageId)
-     while not result.ready():
-     time.sleep(1)
-     print result.get(timeout=1)
+        result = notify_friends.delay(userId, messageId)
+        while not result.ready():
+        time.sleep(1)
+        print result.get(timeout=1)
     if __name__ == '__main__':
      notify('001', '001')
 我们在 call_notify_friends.py 这个程序文件中，定义了 Notify 函数，它调用了我们之前定义的 notify_friends 这个 API，来发送任务处理请求到任务队列，并且不断地查询等待来获得任务处理的结果。
@@ -104,13 +105,12 @@ Celery worker 中的 log 信息：
 我们可以看到，Celery worker 收到了 Python 程序的 notify_friends 任务的处理请求，并且执行完毕。
 
 # 利用调度器创建周期任务
-在我们第二个 Celery 程序中，我们尝试构建一个周期性执行“查询当前一小时最热门文献”的任务，每隔 100 秒执行一次，并将结果保存起来。后续的搜索请求到来后可以直接返回已有的结果，极大优化了用户体验。
+在我们第二个 Celery 程序中，我们尝试构建一个周期性执行“查询当前一小时最热门文献”的任务，每隔 100秒执行一次，并将结果保存起来。后续的搜索请求到来后可以直接返回已有的结果，极大优化了用户体验。
 ## 创建配置文件
 Celery 的调度器的配置是在 CELERYBEAT_SCHEDULE 这个全局变量上配置的，我们可以将配置写在一个独立的 Python 模块，在定义 Celery 对象的时候加载这个模块。我们将 select_populate_book 这个任务定义为每 100 秒执行一次。
 
     # config.py
     from datetime import timedelta
-
     CELERYBEAT_SCHEDULE = {
      'select_populate_book': {
      'task': 'favorite_book.select_populate_book',
@@ -127,10 +127,10 @@ Celery 的调度器的配置是在 CELERYBEAT_SCHEDULE 这个全局变量上配�
     app.config_from_object('config')
     @app.task
     def select_populate_book():
-     print 'Start to select_populate_book task at {0}'.format(time.ctime())
-     time.sleep(2)
-     print 'Task select_populate_book succeed at {0}'.format(time.ctime())
-     return True
+        print 'Start to select_populate_book task at {0}'.format(time.ctime())
+        time.sleep(2)
+        print 'Task select_populate_book succeed at {0}'.format(time.ctime())
+        return True
 ## 启动 Celery worker
 
     celery -A favorite_book worker --loglevel=info

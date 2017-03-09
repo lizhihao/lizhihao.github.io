@@ -14,6 +14,15 @@ categories:
 # 简介
 
 本文介绍了一个开源任务调度模块Celery，Celery是一个基于Python编写的分布式任务调度模块，它有着简明的 API 以及丰富的扩展性，非常适合用于构建分布式的Web服务。本文不仅包含了由浅入深详细的应用程序实例，也包含了在实际工程项目中总结出来的经典使用场景。
+# 特点
+
+1. 异步任务队列/基于分布式消息传递的作业队列。它侧重于实时操作，但对调度支持也很好。
+2. 用于生产系统每天处理数以百万计的任务。
+3. 用Python编写的，但该协议可以在任何语言实现。它也可以与其他语言通过webhooks实现。
+4. 建议的消息代理RabbitMQ的，但提供有限支持Redis, Beanstalk, MongoDB, CouchDB, ，和数据库（使用SQLAlchemy的或Django的 ORM） 。
+5. celery是易于集成Django, Pylons and Flask，使用 django-celery, celery-pylons and Flask-Celery 附加包即可。
+6. Worker以Pool模式启动，默认大小为CPU核心数量，缺省序列化机制是pickle，但可以指定为json。由于Python调用UNIX/Linux程序实在太容易，所以，用Celery作为异步任务框架非常合适。
+
 
 # 任务队列在 Web 服务里的应用
 

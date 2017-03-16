@@ -10,4 +10,4 @@ categories:
 
 ------
 
-![](/media/pic/a1ab8e59jw1f3ymtanvntj20c86677wh) 
+![](/media/pic/a1ab8e59jw1f3ymtanvntj20c86677wh.jpg) 

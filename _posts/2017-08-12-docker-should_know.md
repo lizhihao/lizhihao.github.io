@@ -13,6 +13,7 @@ tags:
 ------
 
 
+
 from : http://www.codeceo.com/article/10-things-avoid-use-docker.html
 
 当你最后投入容器的怀抱，发现它能解决很多问题，而且还具有众多的优点:

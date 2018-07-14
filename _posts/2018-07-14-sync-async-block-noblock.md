@@ -3,7 +3,7 @@ author: lizhihao
 comments: true
 layout: post
 slug: js
-title: 'Code'
+title: 'Sync,Async,Block,NoBlock'
 thread: 98
 categories:
 - tech

@@ -1,4 +1,3 @@
-markdown: rdiscount
 permalink: /:title/
 url: ''
 name: Web Technology

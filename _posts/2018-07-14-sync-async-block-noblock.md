@@ -2,7 +2,6 @@
 author: lizhihao
 comments: true
 layout: post
-slug: js
 title: 'Sync,Async,Block,NoBlock'
 thread: 98
 categories:

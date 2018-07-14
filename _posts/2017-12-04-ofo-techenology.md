@@ -2,7 +2,6 @@
 author: lizhihao
 comments: true
 layout: post
-slug: js
 title: 'component'
 thread: 98
 categories:

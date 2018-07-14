@@ -2,7 +2,6 @@
 author: lizhihao
 comments: true
 layout: post
-slug: js
 title: 'TEAM'
 thread: 98
 categories:

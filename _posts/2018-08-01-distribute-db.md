@@ -8,7 +8,7 @@ categories:
 - tech
 ---
 
-# Sync,Async,Block,NoBlock
+# 分布式数据库知识点
 
 标签（空格分隔）： TECH
 

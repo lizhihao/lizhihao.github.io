@@ -266,125 +266,133 @@ blist = [‘x’,’y’,’z’,’e’,’f’]并且元素不能重复
     print(alist)
     shuffle(alist)
     print(alist)
+
+## 10.简单的实现一个栈结构 stack
+
+    class Stack(object):
+        def __init__(self):
+            self.value = []
+
+        def push(self,x):
+            self.value.append(x)
+
+        def pop(self):
+            self.value.pop()
+
+    stack = Stack()
+
+    stack.push(1)
+    stack.push(2)
+    stack.push(3)
+    print(stack.value)
+    stack.pop()
+    print(stack.value)
+
+## 11.输入一个日期,返回时一年中的哪一天
+
+    from datetime import datetime
+    def which_day(year,month,day):
+        return (datetime(year,month,day)-datetime(year,1,1)).days+1
+    print(which_day(2017,1,15))
+
+## 12.把字符串”k1:1|k2:2|k3:3”处理成 python 字典的形式:{k1:1,k2:2,k3:3}
     
-10.简单的实现一个栈结构 stack
-class Stack(object):
-    def __init__(self):
-        self.value = []
+    def string_to_dict(string):
+        d = {}
+        for kv in string.split("|"):
+            k,v = kv.split(":")
+            if v.isdigit():
+                v=int(v)
+            d[k]=v
+        return d
 
-    def push(self,x):
-        self.value.append(x)
+    print(string_to_dict("k1:1|k2:2|k3:3"))
 
-    def pop(self):
-        self.value.pop()
-
-stack = Stack()
-
-stack.push(1)
-stack.push(2)
-stack.push(3)
-print(stack.value)
-stack.pop()
-print(stack.value)
-11.输入一个日期,返回时一年中的哪一天
-from datetime import datetime
-def which_day(year,month,day):
-    return (datetime(year,month,day)-datetime(year,1,1)).days+1
-
-print(which_day(2017,1,15))
-12.把字符串”k1:1|k2:2|k3:3”处理成 python 字典的形式:{k1:1,k2:2,k3:3}
-def string_to_dict(string):
-    d = {}
-    for kv in string.split("|"):
-        k,v = kv.split(":")
-        if v.isdigit():
-            v=int(v)
-        d[k]=v
-    return d
-
-print(string_to_dict("k1:1|k2:2|k3:3"))
-13.判断输入的值是否在矩阵之中(杨氏矩阵)
+## 13.判断输入的值是否在矩阵之中(杨氏矩阵)
 在一个二维数组之中,每一行都按照从走到右递增的顺序排序,每一列到按照从上到下的顺序排序.请完成一个函数,输入这样的一个二维手术和一个整数,判断数组中是否含有该整数
 
-#处理数组矩阵
-arr = [[1,4,7,10,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]
-def get_num(num,data=None):
-    while data:
-        if num > data[0][-1]:
-            del data[0]
-        elif num<data[0][-1]:
-            data = list(zip(*data))
-            del data[-1]
-            data = list(zip(*data))
-        else:
-            return True
-            data.clear()
-    return False
-print (get_num(18,arr))
+    #处理数组矩阵
+    arr = [[1,4,7,10,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]
+    def get_num(num,data=None):
+        while data:
+            if num > data[0][-1]:
+                del data[0]
+            elif num<data[0][-1]:
+                data = list(zip(*data))
+                del data[-1]
+                data = list(zip(*data))
+            else:
+                return True
+                data.clear()
+        return False
+    print (get_num(18,arr))
+
 不处理数组矩阵 
 使用 step-wise 线性搜索
 
-def getvalue(data,value):
-    m = len(data)-1
-    n = len(data[0])-1
-    r = 0
-    c = n
-    while c>=0 and r<=m:
-        if value == data[r][c]:
-            return True
-        elif value>data[r][c]:
-            r = r+1
-        else:
-            c = c-1
-    return False
-14.获取最大公约数(欧几里得算法)
-a= 25
-b=15
+    def getvalue(data,value):
+        m = len(data)-1
+        n = len(data[0])-1
+        r = 0
+        c = n
+        while c>=0 and r<=m:
+            if value == data[r][c]:
+                return True
+            elif value>data[r][c]:
+                r = r+1
+            else:
+                c = c-1
+        return False
 
-def max_common(a,b):
-    while b:
-        a,b=b,a%b
-    return a
+## 14.获取最大公约数(欧几里得算法)
+
+    a= 25
+    b=15
+    def max_common(a,b):
+        while b:
+            a,b=b,a%b
+        return a
 详解:
 
 https://blog.csdn.net/franktan2010/article/details/38229641
 
-15.求两个数的最小公倍数(公式法)
+## 15.求两个数的最小公倍数(公式法)
 两个数的乘积等于这两个数的 最大公约数与最小公倍数的积
 
-a=25
-b=15
-def min_common(a,b):
-    c= a*b
-    while b:
-        a,b=b,a%b
-    return c//a
+    a=25
+    b=15
+    def min_common(a,b):
+        c= a*b
+        while b:
+            a,b=b,a%b
+        return c//a
+
 详情:
 
 https://zhidao.baidu.com/question/90232880
 
-16.获取中位数
+## 16.获取中位数
 
 如果总数个数是奇数，按从小到大的顺序，取中间的那个数；如果总数个数是偶数个的话，按从小到大的顺序，取中间那两个数的平均数。
 
-#计算中位数
-def mediannum(num):
-    listnum = [num[i] for i in range(len(num))]
-    listnum.sort()
-    lnum = len(num)
-    if lnum % 2 == 1:
-        i = int((lnum + 1) / 2)-1
-        return listnum[i]
-    else:
-        i = int(lnum / 2)-1
-        return (listnum[i] + listnum[i + 1]) / 2
-详情:
+    #计算中位数
+    def mediannum(num):
+        listnum = [num[i] for i in range(len(num))]
+        listnum.sort()
+        lnum = len(num)
+        if lnum % 2 == 1:
+            i = int((lnum + 1) / 2)-1
+            return listnum[i]
+        else:
+            i = int(lnum / 2)-1
+            return (listnum[i] + listnum[i + 1]) / 2
 
+详情:
 https://blog.csdn.net/qq_33363973/article/details/78773144
 
-def medin(data):
-    data.sort()
-    half = len(data)//2
-    return (data[half]+data[~half])/2
-l = [1,3,4,53,2,46,8,42,82]
-print (median(l))
+    def medin(data):
+        data.sort()
+        half = len(data)//2
+        return (data[half]+data[~half])/2
+    l = [1,3,4,53,2,46,8,42,82]
+    print (median(l))

@@ -67,3 +67,5 @@ select / poll / epoll 都是同步IO的多路复用模式
 阻塞IO模型、非阻塞IO模型、IO复用模型和信号驱动IO模型都是同步的IO模型。原因是因为，无论以上那种模型，真正的数据拷贝过程，都是同步进行的。
 
 *	异步IO模型。应用进程把IO请求传给内核后，完全由内核去操作文件拷贝。内核完成相关操作后，会发信号告诉应用进程本次IO已经完成。
+
+[参考]:https://maimai.cn/article/detail?fid=710051461&from=undefined&from1=article_detail_related

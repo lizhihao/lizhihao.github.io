@@ -63,6 +63,13 @@ categories:
 真正意义上的 异步IO 是说内核直接将数据拷贝至用户态的内存单元，再通知程序直接去读取数据。
 select / poll / epoll 都是同步IO的多路复用模式
 
-# 参考
+## select/poll/epoll的区别
+*　　首先前文已述I/O多路复用的本质就是用select/poll/epoll，去监听多个socket对象，如果其中的socket对象有变化，只要有变化，用户进程就知道了。
+*　　select是不断轮询去监听的socket，socket个数有限制，一般为1024个；
+*　　poll还是采用轮询方式监听，只不过没有个数限制；
+*　　epoll并不是采用轮询方式去监听了，而是当socket有变化时通过回调的方式主动告知用户进程。
+
+
+## 参考
 * [参考1]:https://maimai.cn/article/detail?fid=710051461&from=undefined&from1=article_detail_related
 * [参考2]:https://maimai.cn/article/detail?fid=691119712&from=undefined&from1=article_detail_related

@@ -22,7 +22,9 @@ categories:
     templist = (1,2,3,4)
     for i in range(len(templist)-1,-1,-1):
         print templist[i]
+
 ## 2.如何查询和替换一个文本中的字符串
+
     #最简单的方法使用replace()
     tempstr = "hello you hello python are you ok"
     print tempstr.replace("you","python")
@@ -33,7 +35,9 @@ categories:
     import re
     rex = r'(hello|Use)'
     print re.sub(rex,"Bye",tempstr)
+
 ## 3.使用python实现单例模式
+
     #方法一:可以使用__new__方法
     #在__new__方法中把类实例绑定到类变量_instance上，如果cls._instance为None表示该类还没有实例化过，实例化该类并返回。如果cls_instance不为None表示该类已实例化，直接返回cls_instance
     class SingleTon(object):
@@ -54,205 +58,215 @@ categories:
     print id(test1),id(test2)
 
 
-#方法二:使用装饰器,建立过实例的就放到instances里面,下次建立的时候先检查里面有没有
-def SingleTon(cls,*args,**kwargs):
-    instances = {}
-    print instances
-    def _singleton():
-        if cls not in instances:
-            instances[cls] = cls(*args,**kwargs)
+    #方法二:使用装饰器,建立过实例的就放到instances里面,下次建立的时候先检查里面有没有
+    def SingleTon(cls,*args,**kwargs):
+        instances = {}
         print instances
-        return instances[cls]
-    return _singleton
+        def _singleton():
+            if cls not in instances:
+                instances[cls] = cls(*args,**kwargs)
+            print instances
+            return instances[cls]
+        return _singleton
 
-@SingleTon
-class LastClass(object):
-    a = 1
-test1 = LastClass()
-print test1.a
-test2 = LastClass()
-print test2.a
-
-
-#方法三:使用__metaclass__(元类)关于元类看看这个吧;http://blog.jobbole.com/21351/
-class SignalTon(type):
-    def __init__(cls,name,bases,dict):
-        super(SignalTon, cls).__init__(name,bases,dict)
-        cls._instance = None
-
-    def __call__(cls, *args, **kwargs):
-        if cls._instance is None:
-            cls._instance = super(SignalTon,cls).__call__(*args,**kwargs)
-        return cls._instance
-
-class TestClass(object):
-    __metaclass__ = SignalTon
-
-test1 = TestClass()
-test2 = TestClass()
-
-test1.a = 2
-print test1.a,test2.a
-print id(test1),id(test2)
+    @SingleTon
+    class LastClass(object):
+        a = 1
+    test1 = LastClass()
+    print test1.a
+    test2 = LastClass()
+    print test2.a
 
 
-#方法四:共享属性  所谓单例就是所有的引用（实例，对象）拥有相同的属性和方法，同一个类的实例天生都会有相同的方法，那我们只需要保证同一个类所产生的实例都具有相同的属性。所有实例共享属性最简单直接的方法就是共享__dict__属性指向。
+    #方法三:使用__metaclass__(元类)关于元类看看这个吧;http://blog.jobbole.com/21351/
+    class SignalTon(type):
+        def __init__(cls,name,bases,dict):
+            super(SignalTon, cls).__init__(name,bases,dict)
+            cls._instance = None
 
-class SingleTon(object):
-    _state = {}
-    def __new__(cls, *args, **kwargs):
-        obj = object.__new__(cls,*args,**kwargs)
-        obj.__dict__ = cls._state
-        return obj
+        def __call__(cls, *args, **kwargs):
+            if cls._instance is None:
+                cls._instance = super(SignalTon,cls).__call__(*args,**kwargs)
+            return cls._instance
 
-class TestClass(SingleTon):
-    a = 1
+    class TestClass(object):
+        __metaclass__ = SignalTon
 
-test1 = TestClass()
-test2 = TestClass()
-print test1.a,test2.a
-test1.a = 2
-print test1.a,test2.a
-print id(test1),id(test2)
-#方法五:使用同一个模版
-#写在mysingleton.py中
-class My_Singleton(object):
-    def foo(self):
-        pass
+    test1 = TestClass()
+    test2 = TestClass()
 
-my_singleton = My_Singleton()
+    test1.a = 2
+    print test1.a,test2.a
+    print id(test1),id(test2)
 
-#写在要使用这个实例的py文件里面,在不同的引用的地方都引用相同的实例,以此实现单例模式
-from mysingleton import my_singleton
-my_singleton.foo()
-4.重新实现str.strip()
-def rightStrip(tempStr,splitStr):
-    endindex = tempStr.rfind(splitStr)
-    while endindex != -1 and endindex == len(tempStr) - 1:
-         tempStr = tempStr[:endindex]
-         endindex = tempStr.rfind(splitStr)
-    return tempStr
 
-def leftStrip(tempStr,splitStr):
-    startindex = tempStr.find(splitStr)
-    while startindex == 0:
-        tempStr = tempStr[startindex+1:]
+    #方法四:共享属性  所谓单例就是所有的引用（实例，对象）拥有相同的属性和方法，同一个类的实例天生都会有相同的方法，那我们只需要保证同一个类所产生的实例都具有相同的属性。所有实例共享属性最简单直接的方法就是共享__dict__属性指向。
+
+    class SingleTon(object):
+        _state = {}
+        def __new__(cls, *args, **kwargs):
+            obj = object.__new__(cls,*args,**kwargs)
+            obj.__dict__ = cls._state
+            return obj
+
+    class TestClass(SingleTon):
+        a = 1
+
+    test1 = TestClass()
+    test2 = TestClass()
+    print test1.a,test2.a
+    test1.a = 2
+    print test1.a,test2.a
+    print id(test1),id(test2)
+    #方法五:使用同一个模版
+    #写在mysingleton.py中
+    class My_Singleton(object):
+        def foo(self):
+            pass
+
+    my_singleton = My_Singleton()
+
+    #写在要使用这个实例的py文件里面,在不同的引用的地方都引用相同的实例,以此实现单例模式
+    from mysingleton import my_singleton
+    my_singleton.foo()
+
+## 4.重新实现str.strip()
+
+    def rightStrip(tempStr,splitStr):
+        endindex = tempStr.rfind(splitStr)
+        while endindex != -1 and endindex == len(tempStr) - 1:
+             tempStr = tempStr[:endindex]
+             endindex = tempStr.rfind(splitStr)
+        return tempStr
+
+    def leftStrip(tempStr,splitStr):
         startindex = tempStr.find(splitStr)
-    return tempStr
+        while startindex == 0:
+            tempStr = tempStr[startindex+1:]
+            startindex = tempStr.find(splitStr)
+        return tempStr
 
-str = "  H  "
-print str
-print leftStrip(str,' ')
-print rightStrip(str,' ')
-#输出
-  H  
-H  
-  H
-5.super的原理
-#阅读下面的代码，它的输出结果是什么？
-class A(object):
-  def __init__(self):
-   print "enter A"
-   super(A, self).__init__()  # new
-   print "leave A"
+    str = "  H  "
+    print str
+    print leftStrip(str,' ')
+    print rightStrip(str,' ')
+    #输出
+      H  
+    H  
+      H
 
- class B(object):
-  def __init__(self):
-   print "enter B"
-   super(B, self).__init__()  # new
-   print "leave B"
+## 5.super的原理
 
- class C(A):
-  def __init__(self):
-   print "enter C"
-   super(C, self).__init__()
-   print "leave C"
+    #阅读下面的代码，它的输出结果是什么？
+    class A(object):
+      def __init__(self):
+       print "enter A"
+       super(A, self).__init__()  # new
+       print "leave A"
 
- class D(A):
-  def __init__(self):
-   print "enter D"
-   super(D, self).__init__()
-   print "leave D"
- class E(B, C):
-  def __init__(self):
-   print "enter E"
-   super(E, self).__init__()  # change
-   print "leave E"
+     class B(object):
+      def __init__(self):
+       print "enter B"
+       super(B, self).__init__()  # new
+       print "leave B"
 
- class F(E, D):
-  def __init__(self):
-   print "enter F"
-   super(F, self).__init__()  # change
-   print "leave F"
+     class C(A):
+      def __init__(self):
+       print "enter C"
+       super(C, self).__init__()
+       print "leave C"
 
-#输出
+     class D(A):
+      def __init__(self):
+       print "enter D"
+       super(D, self).__init__()
+       print "leave D"
+     class E(B, C):
+      def __init__(self):
+       print "enter E"
+       super(E, self).__init__()  # change
+       print "leave E"
 
- enter F
- enter E
- enter B
- enter C
- enter D
- enter A
- leave A
- leave D
- leave C
- leave B
- leave E
- leave F
+     class F(E, D):
+      def __init__(self):
+       print "enter F"
+       super(F, self).__init__()  # change
+       print "leave F"
+
+    #输出
+
+     enter F
+     enter E
+     enter B
+     enter C
+     enter D
+     enter A
+     leave A
+     leave D
+     leave C
+     leave B
+     leave E
+     leave F
+
 非常棒的讲解:
-
 http://www.cnblogs.com/lovemo1314/archive/2011/05/03/2035005.html
 
 
 
-6.闭包
+## 6.闭包
 常用的装饰器就是闭包的一种 
 
 
-def make_adder(addend): 
-    def adder(addend): 
-        return addend+addend 
-return adder
+    def make_adder(addend): 
+        def adder(addend): 
+            return addend+addend 
+    return adder
 
-P1 = make_adder(5) 
-P2= make_adder(4)
+    P1 = make_adder(5) 
+    P2= make_adder(4)
 
-print p1(10) 
-#输出15 
-print p2(10) 
-#输出14
+    print p1(10) 
+    #输出15 
+    print p2(10) 
+    #输出14
 
 闭包（Closure）是词法闭包（Lexical Closure）的简称，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外 
 http://www.cnblogs.com/ma6174/archive/2013/04/15/3022548.html
 
 https://foofish.net/python-closure.html
 
-7.给列表中的字典排序
+## 7.给列表中的字典排序
+
 list 对象 alist [{“name”:”a”,”age”:20},{“name”:”b”,”age”:30},{“name”:”c”,”age”:25}]按照 age 从大到小排序
 
-alist = [{"name":"a","age":20},{"name":"b","age":30},{"name":"c","age":25}]
-alist.sort(key=lambda:x:-x.get("age"))
-print alist
-8.合并两个列表排除重复元素
+    alist = [{"name":"a","age":20},{"name":"b","age":30},{"name":"c","age":25}]
+    alist.sort(key=lambda:x:-x.get("age"))
+    print alist
+
+## 8.合并两个列表排除重复元素
+
 用简洁的方法合并alist = [‘a’,’b’,’c’,’d’,’e’,’f’] 
 blist = [‘x’,’y’,’z’,’e’,’f’]并且元素不能重复
 
-alist = ['a','b','c','d','e','f']
-blist = ['x','y','z','e','f']
-def merge_list(*args):
-    s = set()
-    for i in args:
-        s = s.union(i)
-    print(s)
-    return s
+    alist = ['a','b','c','d','e','f']
+    blist = ['x','y','z','e','f']
+    def merge_list(*args):
+        s = set()
+        for i in args:
+            s = s.union(i)
+        print(s)
+        return s
 
-merge_list(alist,blist)
-9.打乱一个排好序的列表
-from random import shuffle
-alist = range(10)
-print(alist)
-shuffle(alist)
-print(alist)
+    merge_list(alist,blist)
+
+## 9.打乱一个排好序的列表
+
+    from random import shuffle
+    alist = range(10)
+    print(alist)
+    shuffle(alist)
+    print(alist)
+    
 10.简单的实现一个栈结构 stack
 class Stack(object):
     def __init__(self):

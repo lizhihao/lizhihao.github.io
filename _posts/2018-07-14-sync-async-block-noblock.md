@@ -72,4 +72,6 @@ select / poll / epoll 都是同步IO的多路复用模式
 
 *	异步IO模型。应用进程把IO请求传给内核后，完全由内核去操作文件拷贝。内核完成相关操作后，会发信号告诉应用进程本次IO已经完成。
 
-[参考]:https://maimai.cn/article/detail?fid=710051461&from=undefined&from1=article_detail_related
+[参考1]:https://maimai.cn/article/detail?fid=710051461&from=undefined&from1=article_detail_related
+[参考2]:https://maimai.cn/article/detail?fid=691119712&from=undefined&from1=article_detail_related
+[参考3]:https://maimai.cn/article/detail?fid=710051461&from=undefined&from1=article_detail_related
